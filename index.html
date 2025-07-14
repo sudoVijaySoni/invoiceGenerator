@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+      @media print {
+        @page {
+          margin: 0;
+        }
+        body {
+          margin: 0;
+        }
+        .no-print {
+          display: none !important;
+        }
+
+        /* Only apply print styles to specific areas */
+        table:not(.header-table) {
+          border: 1px solid #000 !important;
+        }
+
+        table:not(.header-table) th,
+        table:not(.header-table) td {
+          border: 1px solid #000 !important;
+        }
+
+        .header-table,
+        .header-table th,
+        .header-table td {
+          border: none !important;
+        }
+
+        th {
+          background: #8831d4 !important;
+          color: #fff !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+
+      .qr {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #000;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      .estimate-heading {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        margin-top: 10px;
+      }
+
+      .edit-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        margin-left: 5px;
+        color: #000;
+      }
+
+      .new-page {
+        page-break-before: always;
+        padding: 20px;
+        border: 2px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="invoice">
+      <div class="estimate-heading">Estimate</div>
+      <header class="top-header">
+        <div class="left-header">
+          <table class="header-table">
+            <tr>
+              <td><strong>Invoice No.:</strong></td>
+              <td><input type="text" value="#0049/2025" /></td>
+            </tr>
+            <tr>
+              <td><strong>Date:</strong></td>
+              <td><input type="text" value="08.07.2025" /></td>
+            </tr>
+            <tr>
+              <td><strong>Gold Rate:</strong></td>
+              <td><input type="text" value="7400" /></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="right-header">
+          <img src="assets/logo.png" alt="Roop Sangam Logo" class="logo" />
+          <!-- <h2>Roop Sangam Gems</h2>
+          <small>Since 1997</small> -->
+        </div>
+      </header>
+
+      <section class="bill-section">
+        <div class="bill-box left-box">
+          <h4>Billed By</h4>
+          <p><strong>SHREE ROOP SANGAM JEWELLERS</strong></p>
+          <p>
+            ShopNo.28, Akash Ganga Complex, 2nd Rabodi, Opp. to Saraswati
+            School, Thane, Maharashtra, India - 400601
+          </p>
+          <p>GSTIN: 27JLRPS4638P1ZP</p>
+          <p>PAN: JLRPS4638P</p>
+          <p>Email: support@roopsangamgems.com</p>
+          <p>Phone: +91 77770 03356</p>
+        </div>
+
+        <div class="bill-box right-box billed-to">
+          <h4>Billed To</h4>
+          <table class="header-table billed-to-table">
+            <tr>
+              <td><strong>Name:</strong></td>
+              <td><input type="text" value="Kiran Hingu" /></td>
+            </tr>
+            <tr>
+              <td><strong>Address:</strong></td>
+              <td>
+                <textarea rows="3">
+Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
+                >
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Phone:</strong></td>
+              <td><input type="text" value="+91 91361 64655" /></td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="summary-section bordered-box">
+        <table id="invoiceTable">
+          <thead>
+            <tr>
+              <th>Summary</th>
+              <th style="text-align: center">Purity</th>
+              <th style="text-align: center">Weight</th>
+              <th style="text-align: center">Amount</th>
+              <th style="text-align: center">GST Rate</th>
+              <th style="text-align: center">Total (Inc. GST)</th>
+              <th class="no-print">Action</th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            <!-- <tr>
+              <td contenteditable="true">
+                A. Garnet<br /><small contenteditable="true"></small>
+              </td>
+              <td contenteditable="true">-</td>
+              <td contenteditable="true">5.70 Ct.</td>
+              <td contenteditable="true">8550</td>
+              <td contenteditable="true">0</td>
+              <td class="total-cell editable">
+                <span>0.00</span>
+                <button class="edit-btn no-print" onclick="editTotal(this)">
+                  ✎
+                </button>
+              </td>
+              <td class="delete-cell no-print">
+                <button onclick="deleteRow(this)">❌</button>
+              </td>
+            </tr> -->
+            <tr>
+              <td contenteditable="true">
+                Garnet Silver Pendant<br /><small
+                  contenteditable="true"
+                ></small>
+              </td>
+              <td style="text-align: center" contenteditable="true">-</td>
+              <td style="text-align: center" contenteditable="true">
+                1.860 Gm.
+              </td>
+              <td style="text-align: center" contenteditable="true">679.62</td>
+              <td style="text-align: center" contenteditable="true">0</td>
+              <td style="text-align: center" class="total-cell editable">
+                <span>0.00</span>
+              </td>
+              <td class="delete-cell no-print">
+                <button onclick="deleteRow(this)">❌</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td
+                colspan="3"
+                style="border: none; font-weight: bold; text-align: center"
+              >
+                Total:
+              </td>
+              <td
+                id="amountTotalFooter"
+                style="text-align: center; font-weight: bold"
+              ></td>
+              <td style="border: none"></td>
+              <td
+                id="grandTotalFooter"
+                style="text-align: center; font-weight: bold"
+              ></td>
+              <td class="no-print" style="border: none"></td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="summary-footer">
+          <button onclick="addItem()" class="no-print">Add Item</button>
+        </div>
+      </section>
+      <!-- 
+      <section class="totals-section bordered-box">
+        <div>
+          <strong>Total (Amount): ₹</strong><span id="amountTotal">0.00</span>
+        </div>
+        <div>
+          <strong>Grand Total: ₹</strong><span id="grandTotal">0.00</span>
+        </div>
+        <div>
+          <strong>Total in words:</strong>
+          <span id="totalWords" style="text-transform: uppercase"></span>
+        </div>
+      </section> -->
+
+      <div>
+        <section class="bank-section bordered-box">
+          <div class="left-bank">
+            <h3><strong>Bank Details</strong></h3>
+            <table class="header-table">
+              <tr>
+                <td><strong>Account Name:</strong></td>
+                <td>AJAY SATYANARAYAN SONI</td>
+              </tr>
+              <tr>
+                <td><strong>Account No.:</strong></td>
+                <td>1006073000000132</td>
+              </tr>
+              <tr>
+                <td><strong>IFSC:</strong></td>
+                <td>SIBL0001006</td>
+              </tr>
+              <tr>
+                <td><strong>Type:</strong></td>
+                <td>Current</td>
+              </tr>
+              <tr>
+                <td><strong>Bank:</strong></td>
+                <td>South Indian Bank</td>
+              </tr>
+              <tr>
+                <td><strong>Firm:</strong></td>
+                <td>Shree Roop Sangam Jewellers</td>
+              </tr>
+              <tr>
+                <td><strong>UPI:</strong></td>
+                <td>ajaysoni434-6@oksbi</td>
+              </tr>
+            </table>
+          </div>
+          <div class="center-bank">
+            <img src="assets/qr-placeholder.jpeg" class="qr" alt="QR Code" />
+            <p style="margin-top: 8px; font-size: 13px; color: #666">
+              ajaysoni434-6@oksbi
+            </p>
+          </div>
+          <div class="right-bank">
+            <table class="header-table">
+              <tr>
+                <td><strong>Amount:</strong></td>
+                <td>₹ <span id="calcAmount">0.00</span></td>
+              </tr>
+              <tr>
+                <td><strong>CGST:</strong></td>
+                <td>₹ <span id="cgst">0.00</span></td>
+              </tr>
+              <tr>
+                <td><strong>SGST:</strong></td>
+                <td>₹ <span id="sgst">0.00</span></td>
+              </tr>
+              <tr>
+                <td><strong>Round Off Amount:</strong></td>
+                <td>₹ <span id="roundOffDisplay">0.00</span></td>
+              </tr>
+              <tr>
+                <td><strong>Total (INR):</strong></td>
+                <td>₹ <span id="grandTotalDisplay">0.00</span></td>
+              </tr>
+
+              <tr>
+                <td><strong>Advance Payment:</strong></td>
+                <td>₹ <input id="advancePayment" type="number" value="0" /></td>
+              </tr>
+              <tr>
+                <td><strong>Final Amount To Be Paid:</strong></td>
+                <td>₹ <span id="finalAmount">0.00</span></td>
+              </tr>
+              <tr>
+                <td><strong>In Words:</strong></td>
+                <td><span id="amountInWords">Zero Only</span></td>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <section class="terms-sign bordered-box">
+          <h4>Terms and Conditions</h4>
+          <ol>
+            <li>
+              Once a stone is sold, there's no possibility for replacement or
+              return.
+            </li>
+            <li>
+              When returning Gold & Silver ornaments, a deduction for making
+              charges will apply, and the gold rate will be Rs. 1500 lower than
+              the current rate.
+            </li>
+            <li>
+              We do not provide any assurances regarding their effects or
+              benefits. Consult an astrologer.
+            </li>
+          </ol>
+          <div class="signatures">
+            <p>Proprietor signature</p>
+            <p>Customer signature</p>
+          </div>
+          <p class="thank-you">Thank you</p>
+        </section>
+
+        <!-- <footer class="thank-you">
+          <p>Thank you</p>
+        </footer> -->
+      </div>
+    </div>
+
+    <div class="buttons no-print">
+      <button onclick="window.print()">Print PDF</button>
+      <button onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
