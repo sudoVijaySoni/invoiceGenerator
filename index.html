@@ -81,27 +81,25 @@
           <table class="header-table">
             <tr>
               <td><strong>Invoice No.:</strong></td>
-              <td><input type="text" value="#0049/2025" /></td>
+              <td><input type="text" value="" /></td>
             </tr>
             <tr>
               <td><strong>Date:</strong></td>
-              <td><input type="text" value="08.07.2025" /></td>
+              <td><input type="text" value="" /></td>
             </tr>
             <tr>
               <td><strong>Gold Rate:</strong></td>
-              <td><input type="text" value="7400" /></td>
+              <td><input type="text" value="" /></td>
             </tr>
             <tr>
               <td><strong>Gold Rate (24K):</strong></td>
-              <td><input type="text" value="10000" /></td>
+              <td><input type="text" value="" /></td>
             </tr>
           </table>
         </div>
 
         <div class="right-header">
           <img src="logo.png" alt="Roop Sangam Logo" class="logo" />
-          <!-- <h2>Roop Sangam Gems</h2>
-          <small>Since 1997</small> -->
         </div>
       </header>
 
@@ -124,19 +122,17 @@
           <table class="header-table billed-to-table">
             <tr>
               <td><strong>Name:</strong></td>
-              <td><input type="text" value="Kiran Hingu" /></td>
+              <td><input type="text" value="" /></td>
             </tr>
             <tr>
               <td><strong>Address:</strong></td>
               <td>
-                <textarea rows="3">
-Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
-                >
+                <textarea rows="3"></textarea>
               </td>
             </tr>
             <tr>
               <td><strong>Phone:</strong></td>
-              <td><input type="text" value="+91 91361 64655" /></td>
+              <td><input type="text" value="+91 " /></td>
             </tr>
           </table>
         </div>
@@ -146,6 +142,7 @@ Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
         <table id="invoiceTable">
           <thead>
             <tr>
+              <th style="text-align: center">Sr No.</th>
               <th>Summary</th>
               <th style="text-align: center">Purity</th>
               <th style="text-align: center">Weight</th>
@@ -155,47 +152,10 @@ Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
               <th class="no-print">Action</th>
             </tr>
           </thead>
-          <tbody id="itemsBody">
-            <!-- <tr>
-              <td contenteditable="true">
-                A. Garnet<br /><small contenteditable="true"></small>
-              </td>
-              <td contenteditable="true">-</td>
-              <td contenteditable="true">5.70 Ct.</td>
-              <td contenteditable="true">8550</td>
-              <td contenteditable="true">0</td>
-              <td class="total-cell editable">
-                <span>0.00</span>
-                <button class="edit-btn no-print" onclick="editTotal(this)">
-                  ✎
-                </button>
-              </td>
-              <td class="delete-cell no-print">
-                <button onclick="deleteRow(this)">❌</button>
-              </td>
-            </tr> -->
-            <tr>
-              <td contenteditable="true">
-                Garnet Silver Pendant<br /><small
-                  contenteditable="true"
-                ></small>
-              </td>
-              <td style="text-align: center" contenteditable="true">-</td>
-              <td style="text-align: center" contenteditable="true">
-                1.860 Gm.
-              </td>
-              <td style="text-align: center" contenteditable="true">679.62</td>
-              <td style="text-align: center" contenteditable="true">0</td>
-              <td style="text-align: center" class="total-cell editable">
-                <span>0.00</span>
-              </td>
-              <td class="delete-cell no-print">
-                <button onclick="deleteRow(this)">❌</button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="itemsBody"></tbody>
           <tfoot>
             <tr>
+              <td style="border: none"></td>
               <td
                 colspan="3"
                 style="border: none; font-weight: bold; text-align: center"
@@ -219,19 +179,6 @@ Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
           <button onclick="addItem()" class="no-print">Add Item</button>
         </div>
       </section>
-      <!-- 
-      <section class="totals-section bordered-box">
-        <div>
-          <strong>Total (Amount): ₹</strong><span id="amountTotal">0.00</span>
-        </div>
-        <div>
-          <strong>Grand Total: ₹</strong><span id="grandTotal">0.00</span>
-        </div>
-        <div>
-          <strong>Total in words:</strong>
-          <span id="totalWords" style="text-transform: uppercase"></span>
-        </div>
-      </section> -->
 
       <div>
         <section class="bank-section bordered-box">
@@ -336,10 +283,6 @@ Aditya Cosmos Heritage, Manpada, Opp. Happy Valley, Thane West</textarea
           </div>
           <p class="thank-you">Thank you</p>
         </section>
-
-        <!-- <footer class="thank-you">
-          <p>Thank you</p>
-        </footer> -->
       </div>
     </div>
 
